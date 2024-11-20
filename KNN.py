@@ -1,5 +1,6 @@
 from sklearn.neighbors import KNeighborsClassifier
 import pandas as pd
+import numpy as np
 class KNN:
 
     def __init__(self,data):
@@ -27,6 +28,17 @@ class KNN:
     
 
     def predict(self,predict_data):
-        predict = self.knn.predict(predict_data)
+        self.classes = ["num_on_main",
+                        "num_on_alt",
+                        "relationship_main",
+                        "relationship_alt",
+                        "harm_severity_main",
+                        "harm_severity_alt",
+                        "social_pressure",
+                        "social_importance_main",
+                        "social_importance_alt"]
+        
+        predict = pd.DataFrame([predict_data],columns=self.classes)
+        predict = self.knn.predict(predict)
         return predict
     

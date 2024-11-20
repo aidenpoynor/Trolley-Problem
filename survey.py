@@ -1,10 +1,13 @@
 import random
-
+import time
 
 class Survey:
 
-    def __init__(self, quant_questions=1):
+    def __init__(self, quant_questions=1,interviewee='h', model = None):
 
+        self.model = model # if human is answering, should always be None
+
+        self.invterviewee = interviewee # 'h' for human and 'c' for cpu
         self.info = []
 
         for question in range(0,quant_questions):
@@ -57,7 +60,7 @@ class Survey:
                      social_pressure,
                      social_importance_main,
                      social_importance_alt):
-
+        print("\n\nYour trolly problem:\n")
         print(f'''Status of main rail:\n
               Number of people: {num_on_main}
               Relationship to them: {self.get_relationship(relationship_main)}
@@ -76,7 +79,7 @@ class Survey:
                 print("There is no pressure for you to pull the lever")
             case 1:
                 print("There is a lot of pressure for you to pull the lever!")
-
+        print("\n\n")
     def gen_question(self):
 
         ##Number of people on rails
@@ -117,20 +120,43 @@ class Survey:
                           social_importance_main,
                           social_importance_alt)
         ##get user input
-        need_response = True
-        while need_response:
-            print("What would you do? (y/n)")
-            decision = input()
-            if decision == 1 or decision.lower() == "yes" or decision.lower() == "y" or decision.lower() == 'pull':
-                decision = 1
-                break
-            elif decision == 0 or decision.lower() == "no" or decision.lower() == "n":
-                decision = 0
-                break
 
-            else:
-                print("Invalid answer!")
-        print("----------------------------------------")
+        if self.invterviewee == 'h':
+            need_response = True
+            while need_response:
+                print("What would you do? (y/n)")
+                decision = input()
+                if decision == 1 or decision.lower() == "yes" or decision.lower() == "y" or decision.lower() == 'pull':
+                    decision = 1
+                    break
+                elif decision == 0 or decision.lower() == "no" or decision.lower() == "n":
+                    decision = 0
+                    break
+
+                else:
+                    print("Invalid answer!")
+            print("----------------------------------------")
+
+        else:
+            print("The AI is in control on this problem...\n\n")
+            input("--- PRESS 'ENTER' TO SEE RESULT ---\n\n\n")
+            decision = self.model.predict([num_on_main,
+                num_on_alt,
+                relationship_main,
+                relationship_alt,
+                harm_severity_main,
+                harm_severity_alt,
+                social_pressure,
+                social_importance_main,
+                social_importance_alt])
+            
+            if decision:
+                print("The AI pulled the lever!")
+            else: print("The AI did nothing...")
+
+            print("\n\n")
+            time.sleep(2.5)
+            
 
         return [num_on_main,
                 num_on_alt,

@@ -39,7 +39,7 @@ if __name__ == "__main__":
             case "predict":
                 if model == None:
                     print("No current model!")
-                else: model.predict()
+                else: Survey(1,'c',model)
             case "survey":
 
                 print("\nWhat would you do in the following scenarios...\n\n\n")
