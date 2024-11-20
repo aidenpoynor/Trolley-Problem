@@ -89,8 +89,8 @@ class Survey:
         ##Relationships - ]
         # 1 - stranger 
         # 4 - loved one
-        relationship_main = random.choice(range(1, 4))
-        relationship_alt = random.choice(range(1, 4))
+        relationship_main = random.choice(range(1, 5))
+        relationship_alt = random.choice(range(1, 5))
 
         ##Harm 
         # 0 - suffer slowly
@@ -106,8 +106,8 @@ class Survey:
         # 1 = thief 
         # 5 = doctor
 
-        social_importance_main = random.choice(range(1, 5))
-        social_importance_alt = random.choice(range(1, 5))
+        social_importance_main = random.choice(range(1, 6))
+        social_importance_alt = random.choice(range(1, 6))
 
         self.print_prompt(
                           num_on_main,
@@ -153,9 +153,9 @@ class Survey:
             if decision:
                 print("The AI pulled the lever!")
             else: print("The AI did nothing...")
-
+            
             print("\n\n")
-            time.sleep(2.5)
+            input("--- PRESS 'ENTER' TO RETURN TO MENU ---\n\n\n")
             
 
         return [num_on_main,
