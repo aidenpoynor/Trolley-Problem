@@ -1,5 +1,6 @@
 import KNN
 import sys
+import csv
 from survey import Survey
 
 def usage():
@@ -13,7 +14,15 @@ def usage():
 if __name__ == "__main__":
 
     model = None
-    data = "trolley.csv"
+    
+    
+    #data = "trolley.csv"
+    data = "dummy_data.csv"
+    survey = "survey.csv"
+
+    if data != "trolley.csv":
+        print(f"Warning! You are working with {data} for you dataset!")
+
     while True:
         print("What would you like to do?")
         usage()
@@ -25,13 +34,28 @@ if __name__ == "__main__":
                 print("Goodbye!")
                 sys.exit()
             case "train":
+                print("Creating KNN model...")
                 model = KNN.KNN(data)
             case "predict":
                 if model == None:
                     print("No current model!")
                 else: model.predict()
             case "survey":
-                survey = Survey()
+
+                print("\nWhat would you do in the following scenarios...\n\n\n")
+                survey = Survey(3)
+                print(survey.info)
+
+                # Open the CSV file in write mode
+                with open(data, "a", newline="") as file:
+
+                    # Create a CSV writer object
+                    writer = csv.writer(file)
+
+
+                    # Write the data rows
+                    writer.writerows(survey.info)
+
             case _:
                 usage()
 

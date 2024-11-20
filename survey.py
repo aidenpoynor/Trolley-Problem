@@ -7,7 +7,7 @@ class Survey:
 
         self.info = []
 
-        for question in range(quant_questions):
+        for question in range(0,quant_questions):
             self.info.append(self.gen_question())
 
     def get_relationship(self, relationship):
