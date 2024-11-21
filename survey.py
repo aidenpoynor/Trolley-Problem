@@ -3,13 +3,26 @@ import time
 
 class Survey:
 
-    def __init__(self, quant_questions=1,interviewee='h', model = None):
+    def __init__(self, quant_questions=1,interviewee='h', model = None, hide = False):
 
         self.model = model # if human is answering, should always be None
-
+        self.hide = hide
         self.invterviewee = interviewee # 'h' for human and 'c' for cpu
         self.info = []
 
+
+        self.classes = ["num_on_main",
+                        "num_on_alt",
+                        "relationship_main",
+                        "relationship_alt",
+                        "harm_severity_main",
+                        "harm_severity_alt",
+                        "social_pressure",
+                        "social_importance_main",
+                        "social_importance_alt",
+                        "decision"]
+        
+        
         for question in range(0,quant_questions):
             self.info.append(self.gen_question())
 
@@ -109,7 +122,7 @@ class Survey:
         social_importance_main = random.choice(range(1, 6))
         social_importance_alt = random.choice(range(1, 6))
 
-        self.print_prompt(
+        if not self.hide: self.print_prompt(
                           num_on_main,
                           num_on_alt,
                           relationship_main,
@@ -138,8 +151,8 @@ class Survey:
             print("----------------------------------------")
 
         else:
-            print("The AI is in control on this problem...\n\n")
-            input("--- PRESS 'ENTER' TO SEE RESULT ---\n\n\n")
+            if not self.hide: print("The AI is in control on this problem...\n\n")
+            if not self.hide: input("--- PRESS 'ENTER' TO SEE RESULT ---\n\n\n")
             decision = self.model.predict([num_on_main,
                 num_on_alt,
                 relationship_main,
@@ -148,14 +161,15 @@ class Survey:
                 harm_severity_alt,
                 social_pressure,
                 social_importance_main,
-                social_importance_alt])
+                social_importance_alt])[0]
             
             if decision:
-                print("The AI pulled the lever!")
-            else: print("The AI did nothing...")
+                if not self.hide: print("The AI pulled the lever!")
+            else: 
+                if not self.hide: print("The AI did nothing...")
             
-            print("\n\n")
-            input("--- PRESS 'ENTER' TO RETURN TO MENU ---\n\n\n")
+            if not self.hide: print("\n\n")
+            if not self.hide: input("--- PRESS 'ENTER' TO RETURN TO MENU ---\n\n\n")
             
 
         return [num_on_main,

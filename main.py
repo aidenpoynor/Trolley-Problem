@@ -2,6 +2,7 @@ import KNN
 import sys
 import csv
 import time
+import analysis
 from survey import Survey
 import os
 
@@ -66,6 +67,17 @@ if __name__ == "__main__":
 
                     # Write the data rows
                     writer.writerows(survey.info)
+            case "analysis":
+
+                data = []
+                wait = True
+                if model == None:
+                    print("No current model!")
+                    break
+
+                analysis.run_analysis(model)
+
+
 
             case _:
                 usage()
