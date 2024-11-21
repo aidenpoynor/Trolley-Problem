@@ -93,5 +93,5 @@ def run_analysis(model):
     print("Most common relationship status of people killed:", get_relationship(most_common_killed))
 
 
-
+    input("\n\n\n--- PRESS ENTER TO RETURN TO THE MENU ---")
     #print(f"Social status of majority saved")

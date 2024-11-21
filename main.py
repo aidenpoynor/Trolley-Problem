@@ -10,6 +10,7 @@ def usage():
     print("Here are your options:")
     print("train    -   train KNN model")
     print("predict  -   see what the KNN model would do in a random situation")
+    print("analysis -   run trained model through a bunch of simulations and get report for results")
     print("survey   -   decide what you would do in a random trolly problem and give it to the model")
     print("exit     -   exit program\n\n")
 
