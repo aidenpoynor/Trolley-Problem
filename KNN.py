@@ -79,5 +79,6 @@ class KNN:
         plt.xlabel("Principal Component 1")
         plt.ylabel("Principal Component 2")
         plt.legend()
+        plt.show()
         plt.savefig("AI_Visualization_KNN.png")
         plt.cla()

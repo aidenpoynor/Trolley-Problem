@@ -3,7 +3,7 @@ import time
 
 class Survey:
 
-    def __init__(self, quant_questions=1,interviewee='h', model = None, hide = False):
+    def __init__(self, quant_questions=1,interviewee='h', model = None, hide = False, custom=None):
 
         self.model = model # if human is answering, should always be None
         self.hide = hide
@@ -22,9 +22,20 @@ class Survey:
                         "social_importance_alt",
                         "decision"]
         
-        
-        for question in range(0,quant_questions):
-            self.info.append(self.gen_question())
+        if custom != None:
+            if custom == 'l':
+                self.load()
+            else: self.customize_q()
+        else:
+            for question in range(0,quant_questions):
+                self.info.append(self.gen_question())
+
+    ##implement these later
+    def load():
+        pass
+
+    def customize_q():
+        pass
 
     def get_relationship(self, relationship):
 
