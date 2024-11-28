@@ -109,7 +109,7 @@ if __name__ == "__main__":
                 choice = input("Would you like (l)oad a scenario or (c)ustomize one?")
 
                 if choice.lower() == 'l':
-                        print()
+                        Survey(0,'c',model,False,choice)
                 elif choice.lower == 'c':
                         print()
                 else: print("Invalid input!") 

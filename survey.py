@@ -1,5 +1,6 @@
 import random
 import time
+import os
 
 class Survey:
 
@@ -31,10 +32,36 @@ class Survey:
                 self.info.append(self.gen_question())
 
     ##implement these later
-    def load():
-        pass
+    def load(self):
 
-    def customize_q():
+        ##grabs all csv files of different scenarios
+        sit_list = os.listdir("situations")
+
+        while True:
+            option = 0
+            for sit in sit_list:
+                print(f"\t{option} - {sit.replace(".csv","")}")
+                option += 1
+
+            print("\te - exit")
+            choice = input()
+
+
+            if choice == 'e': break
+
+            elif choice.isdigit():
+                try:
+                    choice = int(choice)
+                    if choice >= 0 or choice < len(sit_list):
+                        ##
+                        print()
+                        print(sit_list[int(choice)])
+                    
+
+                except Exception as e:
+                    print(f"Something went wrong!\n error: {e}")
+    
+    def customize_q(self):
         pass
 
     def get_relationship(self, relationship):
