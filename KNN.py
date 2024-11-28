@@ -7,10 +7,8 @@ from sklearn.neighbors import KNeighborsClassifier
 class KNN:
 
     def __init__(self, data):
-        print("Building KNN")
+        
         self.data = pd.read_csv(data)
-
-        print(self.data.head(10))
         self.knn = KNeighborsClassifier(n_neighbors=3)
 
         self.classes = ["num_on_main",

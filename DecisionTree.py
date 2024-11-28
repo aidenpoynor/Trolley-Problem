@@ -50,9 +50,9 @@ class DecisionTree:
         recall = recall_score(y_test, y_pred)
         f_score = f1_score(y_test, y_pred)
 
-        print("Precision:", precision)
-        print("Recall:", recall)
-        print("F-score:", f_score)
+        #print("Precision:", precision)
+        #print("Recall:", recall)
+        #print("F-score:", f_score)
 
     def predict(self, predict_data):
         self.classes = ["num_on_main",
@@ -93,4 +93,6 @@ class DecisionTree:
         # Visualize the tree
         plt.figure(figsize=(12, 8))
         plot_tree(self.treeclf, filled=True, feature_names=self.classes, class_names=["not pulled","pulled"])
+        plt.savefig("AI_Visualization_Decision tree.png")
         plt.show()
+        plt.cla()

@@ -2,6 +2,7 @@ import KNN,sys, csv, time, os
 import analysis
 from DecisionTree import DecisionTree
 from survey import Survey
+from pyfiglet import Figlet
 
 ##formats user input
 def usage():
@@ -32,8 +33,11 @@ if __name__ == "__main__":
     while True:
 
         # Clearing the Screen
-        os.system('cls')
+        os.system('clear')
         
+        f = Figlet(font='slant')
+        print(f.renderText('Trolley Problem AI'))
+
         ##gathers input
         print("What would you like to do?\n")
         usage()
@@ -62,17 +66,23 @@ if __name__ == "__main__":
 
                 else: print("Invalid input!")
                 print("Model created!")
+                wait = True
             
             ##generate random trolly problem for model
             case "predict":
-                wait = True
+                
+                
                 if model == None:
                     print("No current model!")
+                    wait = True
                 else:
+                    os.system('clear')
                     Survey(1,'c',model)
+                    
 
             ##generates questions to feed back into model
             case "survey":
+                os.system('clear')
 
                 print("\nWhat would you do in the following scenarios...\n\n\n")
                 survey = Survey(3)
@@ -106,7 +116,7 @@ if __name__ == "__main__":
 
             ##generate 100 random trolley problems and look at statistics
             case "analysis":
-
+                os.system('clear')
                 data = []
                 wait = True
                 if model == None:
@@ -119,7 +129,7 @@ if __name__ == "__main__":
                 usage()
 
         ##pauses for user to read any feedback before resetting
-        if wait: 
-            time.sleep(2)
+        
+        if wait: time.sleep(2)
         
 

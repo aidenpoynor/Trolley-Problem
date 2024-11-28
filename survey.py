@@ -175,9 +175,21 @@ class Survey:
                 social_importance_alt])[0]
             
             if decision:
-                if not self.hide: print("The AI pulled the lever!")
+                if not self.hide: 
+                    f = open("ascii_art/lever.txt",'r')
+                    file_contents = f.read()
+                    print(file_contents)
+                    f.close()
+
+                    print("\nThe AI pulled the lever!")
             else: 
-                if not self.hide: print("The AI did nothing...")
+                if not self.hide:
+                    f = open("ascii_art/coffeecup.txt",'r')
+                    file_contents = f.read()
+                    print(file_contents)
+                    f.close()
+            
+                    print("\nThe AI did nothing...")
             
             if not self.hide: print("\n\n")
             if not self.hide: input("--- PRESS 'ENTER' TO RETURN TO MENU ---\n\n\n")
