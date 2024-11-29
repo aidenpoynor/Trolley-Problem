@@ -12,7 +12,7 @@ def usage():
     print("analysis  -   run trained model through a bunch of simulations and get report for results")
     print("visualize -   see visualiziton of how model makes it's decisions")
     print("load      -   customize or load in specific scenario")
-    print("survey    -   decide what you would do in a random trolly problem and give it to the model")
+    print("survey    -   decide what you would do in a random trolley problem and give it to the model")
     print("exit      -   exit program\n\n")
 
 
@@ -68,7 +68,7 @@ if __name__ == "__main__":
                 print("Model created!")
                 wait = True
             
-            ##generate random trolly problem for model
+            ##generate random trolley problem for model
             case "predict":
                 
                 
@@ -103,7 +103,7 @@ if __name__ == "__main__":
                 if model != None: model.visualize()
                 else: print("No current model!")
 
-            ##load or customize trolly problem
+            ##load or customize trolley problem
             case "load":
 
                 if model != None:

@@ -109,7 +109,7 @@ class Survey:
                      social_pressure,
                      social_importance_main,
                      social_importance_alt):
-        print("\n\nYour trolly problem:\n")
+        print("\n\nYour trolley problem:\n")
         print(f'''Status of main rail:\n
               Number of people: {num_on_main}
               Relationship to them: {self.get_relationship(relationship_main)}
@@ -205,7 +205,7 @@ class Survey:
 
     def gen_question(self,csv=None):
 
-        ## if there is no CSV we need to randomly create a trolly problem
+        ## if there is no CSV we need to randomly create a trolley problem
         if csv == None:
 
             ##Number of people on rails
