@@ -106,13 +106,15 @@ if __name__ == "__main__":
             ##load or customize trolly problem
             case "load":
 
-                choice = input("Would you like (l)oad a scenario or (c)ustomize one?")
+                if model != None:
+                    choice = input("Would you like (l)oad a scenario or (c)ustomize one?")
 
-                if choice.lower() == 'l':
-                        Survey(0,'c',model,False,choice)
-                elif choice.lower == 'c':
-                        print()
-                else: print("Invalid input!") 
+                    if choice.lower() == 'l' or choice.lower()=='c':
+                            Survey(0,'c',model,False,choice)
+                            
+                    else: print("Invalid input!")
+                
+                else: print("No current model!") 
 
             ##generate 100 random trolley problems and look at statistics
             case "analysis":

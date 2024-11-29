@@ -1,6 +1,7 @@
 import random
 import time
 import os
+import pandas as pd
 
 class Survey:
 
@@ -26,7 +27,7 @@ class Survey:
         if custom != None:
             if custom == 'l':
                 self.load()
-            else: self.customize_q()
+            else: self.build_quesiton()
         else:
             for question in range(0,quant_questions):
                 self.info.append(self.gen_question())
@@ -39,12 +40,14 @@ class Survey:
 
         while True:
             option = 0
+            os.system('clear')
+            print("List of current available trolley problems you can load:\n")
             for sit in sit_list:
                 print(f"\t{option} - {sit.replace(".csv","")}")
                 option += 1
 
-            print("\te - exit")
-            choice = input()
+            print("\te - exit\n")
+            choice = input("choice: ")
 
 
             if choice == 'e': break
@@ -53,16 +56,11 @@ class Survey:
                 try:
                     choice = int(choice)
                     if choice >= 0 or choice < len(sit_list):
-                        ##
-                        print()
-                        print(sit_list[int(choice)])
-                    
+                        self.gen_question(sit_list[int(choice)])
 
                 except Exception as e:
                     print(f"Something went wrong!\n error: {e}")
     
-    def customize_q(self):
-        pass
 
     def get_relationship(self, relationship):
 
@@ -131,34 +129,131 @@ class Survey:
             case 1:
                 print("There is a lot of pressure for you to pull the lever!")
         print("\n\n")
-    def gen_question(self):
 
-        ##Number of people on rails
-        num_on_alt = random.choice(range(1, 5))
-        num_on_main = random.choice(range(1, 5))
+    def build_quesiton(self):
+            os.system('clear')
+            print("Please ONLY enter integers for the following questions!\n")
+            try:
+                num_on_main = int(input("How many people are on the main rail?: "))
+                num_on_alt = int(input("How many people are on the alternate rail?: "))
+                print('''
+                Notes:
+                    1 - Total Stranger
+                    2 - Acquaintance
+                    3 - Friend
+                    4 - Loved One
+                
+                Going above or below limits may cause unexpected results
+                      ''')
+                relationship_main = int(input("What is your relationship to the people on main rail?: "))
+                relationship_alt = int(input("What is your relationship to the people on alternate rail?: "))
+                
+                print('''
+                Notes:
+                    0 - suffer slowly
+                    1 - instant death
+                
+                Going above or below limits may cause unexpected results
+                      ''')
+                
+                harm_severity_main = int(input("How harsh will impact be on the main rail?: "))
+                harm_severity_alt = int(input("How harsh will impact be on the alternate rail?: "))
+                print('''
+                Notes:
+                    0 - No
+                    1 - Yes
+                
+                Going above or below limits may cause unexpected results
+                      ''')
+                social_pressure = int(input("Are people watching? "))
+                print('''
+                Notes:
+                    1 - Murderer
+                    2 - Thief
+                    3 - Average Joe (Neutral person)
+                    4 - Upstanding Citizen (Donates to charity, Holds doors open for people, etc.)
+                    5 - Doctor
+                Going above or below limits may cause unexpected results
+                ''')
+                social_importance_main = int(input("How do the people on the main rail impact society?: "))
+                social_importance_alt = int(input("How do the people on the alternate rail impact society?: "))
+        
+                problem_name = input("Name this trolley problem: ") + ".csv"
 
-        ##Relationships - ]
-        # 1 - stranger 
-        # 4 - loved one
-        relationship_main = random.choice(range(1, 5))
-        relationship_alt = random.choice(range(1, 5))
+                ##turn inputs into csv file
+                d = {
+                'num_on_main':[num_on_main],
+                'num_on_alt':[num_on_alt],
+                'relationship_main':[relationship_main],
+                'relationship_alt':[relationship_alt],
+                'harm_severity_main':[harm_severity_main],
+                'harm_severity_alt':[harm_severity_alt],
+                'social_pressure':[social_pressure],
+                'social_importance_main':[social_importance_main],
+                'social_importance_alt':[social_importance_alt]}
+                
+                df = pd.DataFrame(d)
 
-        ##Harm 
-        # 0 - suffer slowly
-        # 1 - instant death
+                df.to_csv("situations/"+problem_name)
 
-        harm_severity_main = random.choice([0, 1])
-        harm_severity_alt = random.choice([0, 1])
+            except Exception as e:
 
-        ##Is there pressure?
-        social_pressure = random.choice([0, 1])
+                print(e)
 
-        ##Societal importance 
-        # 1 = thief 
-        # 5 = doctor
+            
+    
 
-        social_importance_main = random.choice(range(1, 6))
-        social_importance_alt = random.choice(range(1, 6))
+    def gen_question(self,csv=None):
+
+        ## if there is no CSV we need to randomly create a trolly problem
+        if csv == None:
+
+            ##Number of people on rails
+            num_on_alt = random.choice(range(1, 5))
+            num_on_main = random.choice(range(1, 5))
+
+            ##Relationships - ]
+            # 1 - stranger 
+            # 4 - loved one
+            relationship_main = random.choice(range(1, 5))
+            relationship_alt = random.choice(range(1, 5))
+
+            ##Harm 
+            # 0 - suffer slowly
+            # 1 - instant death
+
+            harm_severity_main = random.choice([0, 1])
+            harm_severity_alt = random.choice([0, 1])
+
+            ##Is there pressure?
+            social_pressure = random.choice([0, 1])
+
+            ##Societal importance 
+            # 1 = thief 
+            # 5 = doctor
+
+            social_importance_main = random.choice(range(1, 6))
+            social_importance_alt = random.choice(range(1, 6))
+        
+        else:
+
+            df = pd.read_csv("situations/"+csv)
+            num_on_main = df.loc[0,'num_on_main']
+            num_on_alt = df.loc[0,'num_on_alt']
+            relationship_main = df.loc[0,'relationship_main'] 
+            relationship_alt = df.loc[0,'relationship_alt']
+            harm_severity_main = df.loc[0,'harm_severity_main']
+            harm_severity_alt = df.loc[0,'harm_severity_alt']
+            social_pressure = df.loc[0,'social_pressure']
+            social_importance_main = df.loc[0,'social_importance_main']
+            social_importance_alt = df.loc[0,'social_importance_alt']
+
+            os.system('clear')
+
+            print(f"successfully loaded {csv.replace('.csv','')} trolley problem!")
+
+            
+            
 
         if not self.hide: self.print_prompt(
                           num_on_main,
