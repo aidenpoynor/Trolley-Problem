@@ -72,7 +72,7 @@ class Survey:
                 return "Acquaintance"
             case 3:
                 return "Friend"
-            case _:
+            case 4:
                 return "Loved One"
 
     def get_social_status(self, status):
@@ -95,7 +95,7 @@ class Survey:
 
             case 0:
                 return "Slow and painful Death"
-            case _:
+            case 1:
                 return "Instant Death"
 
 
@@ -125,9 +125,9 @@ class Survey:
 
         match social_pressure:
             case 0:
-                print("There is no pressure for you to pull the lever")
+                print("Nobody is watching you make this choice.")
             case 1:
-                print("There is a lot of pressure for you to pull the lever!")
+                print("There are people watching you make this choice.")
         print("\n\n")
 
     def build_quesiton(self):
