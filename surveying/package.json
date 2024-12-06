@@ -1,0 +1,8 @@
+{
+    "name": "survey-response-saver",
+    "version": "1.0.0",
+    "dependencies": {
+      "@google-cloud/storage": "^5.15.0",
+      "fast-csv": "^4.3.6"
+    }
+  }
