@@ -1,4 +1,3 @@
-// Get references to DOM elements
 const generateBtn = document.getElementById("generate-btn");
 const numberDisplay = document.getElementById("number-display");
 const answerSection = document.getElementById("answer-section");
@@ -6,7 +5,6 @@ const yesBtn = document.getElementById("yes-btn");
 const noBtn = document.getElementById("no-btn");
 const responseList = document.getElementById("response-list");
 
-// Store the generated number and responses
 let prompt = null;
 const responses = [];
 
@@ -27,7 +25,7 @@ function generateQuestion() {
 
   prompt = gen_prompt(num_on_main,num_on_alt,relationship_main,relationship_alt,harm_severity_main,harm_severity_alt,social_pressure,social_importance_main,social_importance_alt);
 
-  numberDisplay.innerHTML = prompt.formattedPrompt; // Use innerHTML to parse and render the HTML tags
+  numberDisplay.innerHTML = prompt.formattedPrompt;
   answerSection.style.display = "block";
 }
 
@@ -107,7 +105,6 @@ function gen_prompt(num_on_main, num_on_alt, relationship_main, relationship_alt
 }
 
 
-// Function to convert numbers and answer to a CSV format
 function convertToCSVRow(numbers, answer) {
   if (answer == "Yes") {
     answer = 1;
@@ -146,13 +143,11 @@ const cloudFunctionUrl = 'insert-URL';
 
 function handleResponse(answer) {
   if (prompt !== null) {
-    // Construct the payload
     const data = {
-      questionNumbers: convertToArray(prompt.numbers), // Array of numbers from your generated prompt
-      answer: answer, // User's answer ('Yes' or 'No')
+      questionNumbers: convertToArray(prompt.numbers), 
+      answer: answer,
     };
 
-    // Send the data to the Cloud Function
     fetch(cloudFunctionUrl, {
       method: 'POST',
       headers: {
@@ -173,7 +168,6 @@ function handleResponse(answer) {
         console.error('Error sending data to Cloud Function:', error);
       });
 
-    // Update the UI
     responses.push({ question: prompt.numbers, answer });
 
     const listItem = document.createElement('li');
@@ -186,8 +180,6 @@ function handleResponse(answer) {
   }
 }
 
-
-// Attach event listeners
 generateBtn.addEventListener("click", generateQuestion);
 yesBtn.addEventListener("click", () => handleResponse("Yes"));
 noBtn.addEventListener("click", () => handleResponse("No"));
